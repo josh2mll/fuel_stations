@@ -39,8 +39,8 @@ const FuelPricesTable = ({ fuels }) => {
           </tr>
         </thead>
         <tbody>
-          {fuelPrices.filter(fuel => fuels.includes(fuel.fuelMobId)).map((fuel) => (
-            <tr key={fuel.fuelMobId}>
+          {fuelPrices.filter(fuel => fuels.includes(fuel.fuelMobId) && fuel.fuelMobId == 2 || fuel.fuelMobId == 3).map((fuel) => (
+             <tr key={fuel.fuelMobId}>
               <td>{fuel.name}</td>
               <td>{fuel.price}</td>
             </tr>

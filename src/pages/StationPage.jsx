@@ -2,16 +2,16 @@ import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
 import FuelPricesTable from '../components/FuelPricesTable';
 
 const StationPage = ({ data }) => {
-  const { region, city, address } = useParams();
-  const station = data[region][city][address][0];
+  const { part, region, city, address } = useParams();
+  const station = data[part][region][city][address][0];
 
   const navigate = useNavigate();
 
   const { setPreviousPage } = useOutletContext();
-  setPreviousPage(`/${encodeURIComponent(region)}/${encodeURIComponent(city)}`);
+  setPreviousPage(`/${part}/${encodeURIComponent(region)}/${encodeURIComponent(city)}`);
   
   if (!station) {
-    navigate('/not_found');
+    navigate(`/not_found`);
   } else {
     return (
       <>

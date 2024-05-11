@@ -9,8 +9,9 @@ import CityPage from './pages/CityPage';
 import StationPage from './pages/StationPage';
 import groupByFields from './shared/groupByFields';
 import NotFoundPage from './pages/NotFoundPage';
+import groupByPart from './shared/groupByPart';
 
-const App = () => {
+const App = () => {  
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -20,10 +21,12 @@ const App = () => {
     axios
       .get('https://td4.brsm-nafta.com/api/v2/Mobile/get_full_ffs')
       .then((response) => {
-        const groupedData = sortByKeys(
+        const groupedData = groupByPart(
+                            sortByKeys(
                               groupByFields(
-                                sortByField(response.data, 'city'), ['region', 'city', 'address']));
+                                sortByField(response.data, 'city'), ['region', 'city', 'address'])));
                                 // Grouping by region, city, address and in alphabetical order
+        // console.log(groupedData);
         setData(groupedData);
       })
       .catch((error) => {
@@ -50,7 +53,6 @@ const App = () => {
         <Route path="/" element={
           <>
             <header>
-              <Link to="/">На головну </Link>
               {previousPage && (
                 <Link to={previousPage}>Назад</Link>
               )}
@@ -63,11 +65,13 @@ const App = () => {
         }>
           <Route index element={<HomePage data={data} />} />
 
-          <Route path="/:region" element={<RegionPage data={data} />} />
-          <Route path="/:region/:city" element={<CityPage data={data} />} />
-          <Route path="/:region/:city/:address" element={<StationPage data={data} />} />
+          <Route path="/:part" element={<HomePage data={data} />} />
+          <Route path="/:part/:region" element={<RegionPage data={data} />} />
+          <Route path="/:part/:region/:city" element={<CityPage data={data} />} />
+          <Route path="/:part/:region/:city/:address" element={<StationPage data={data} />} />
 
           <Route path="/not_found" element={<NotFoundPage/>} />
+          <Route path="/:part/not_found" element={<NotFoundPage/>} />
           <Route path="*" element={<NotFoundPage/>} />
         </Route>
       </Routes>

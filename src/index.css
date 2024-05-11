@@ -64,8 +64,25 @@ th {
   color: #fff;
 }
 
+nav {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 .feed {
   margin-left: 20px;
   margin-right: 20px;
   margin-bottom: 30px;
+}
+
+a.nav-link:hover {
+  color: #FFD700;
+}
+
+a.nav-link.active {
+  color: #FFD700 !important;
+}
+
+.nav-item {
+  padding: 2px;
 }
